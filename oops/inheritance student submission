@@ -1,0 +1,154 @@
+
+PREPARENEW
+CERTIFY
+COMPETE
+Search
+1
+ 20pa1a5726 
+All Contests  javaoopsgood  Inheritance Person Student
+Inheritance Person Student
+Problem
+Submissions
+Leaderboard
+Discussions
+Submitted in a few seconds • Score: 30.00Status: Accepted
+ Test Case #0
+ Test Case #1
+
+Submitted Code
+Language: Java 15
+
+ Open in editor
+1
+import java.io.*;
+2
+import java.util.*;
+3
+class Person{
+4
+    private String fname;
+5
+    private String lname;
+6
+    public String getFname(){
+7
+        return fname;
+8
+    }
+9
+    public String getLname(){
+10
+        return lname;
+11
+    }
+12
+    public String setFname(String fname){
+13
+        return this.fname=fname;
+14
+    }
+15
+public String setLname(String lname){
+16
+    return this.lname=lname;
+17
+}
+18
+    }
+19
+class Student extends Person{
+20
+    int id,sum=0,avg;
+21
+    int [] marks;
+22
+    Student(String fname,String lname,int id,int marks[]){
+23
+        super.setFname(fname);
+24
+        super.setLname(lname);
+25
+        this.id=id;
+26
+        this.marks=marks;
+27
+    }
+28
+    public void display(){
+29
+        System.out.println("Name: "+super.getLname()+", "+super.getFname());
+30
+        System.out.println("ID: "+id);
+31
+        for(int i=0;i<marks.length;i++){
+32
+            sum+=marks[i];
+33
+        }
+34
+        avg=sum/marks.length;
+35
+        if(avg<40){
+36
+            System.out.println("Grade: T");
+37
+        }
+38
+        if(avg>=90 && avg<=100){
+39
+            System.out.println("Grade: O");
+40
+        }if(avg>=80 && avg<90){
+41
+            System.out.println("Grade: E");
+42
+        }if(avg>=70 && avg<80){
+43
+            System.out.println("Grade: A");
+44
+        }if(avg>=55  && avg<70){
+45
+            System.out.println("Grade: P");
+46
+        }
+47
+        if(avg>=40 && avg<55){
+48
+            System.out.println("Grade: D");
+49
+        }
+50
+    }
+51
+}
+52
+​
+53
+public class Solution {
+54
+​
+55
+    public static void main(String[] args) {
+56
+       Scanner in = new Scanner(System.in);
+57
+        String[] s1=in.nextLine().split(" ");
+58
+        int n=in.nextInt();
+59
+        int [] ar = new int[n];
+60
+        for(int i=0;i<n;i++){
+61
+            ar[i]=in.nextInt();
+62
+        }
+63
+        Student s= new Student(s1[0],s1[1],Integer.parseInt(s1[2]),ar);
+64
+        s.display();
+65
+    }
+66
+}
+
