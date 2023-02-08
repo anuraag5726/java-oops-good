@@ -1,0 +1,43 @@
+import java.io.*;
+import java.util.*;
+
+import java.io.*;
+import java.util.*;
+class IntegerList{
+    int[] ar;
+    int i=0,cap;
+    public IntegerList(int cap)
+    {
+        this.cap=cap;
+        ar=new int[cap];
+    }
+    void add(int value){
+     if(i<cap){
+         ar[i]=value;
+         i++;
+     }
+        else{
+            System.out.println("can't add, list is full");
+        }
+    }
+    public void ToString(){
+        for(int j=0;j<cap;j++){
+            System.out.println(j+" : "+ar[j]);
+        }
+    }
+    
+}
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int capacity = Integer.parseInt(in.nextLine());
+        IntegerList nums = new IntegerList(capacity);
+        while(in.hasNextLine()){
+            int num = Integer.parseInt(in.nextLine());
+            nums.add(num);
+        }
+        nums.ToString();
+    }
+}
