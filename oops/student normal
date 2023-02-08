@@ -1,0 +1,50 @@
+import java.io.*;
+import java.util.*;
+class student{
+    private String name;
+    private int rollNo;
+    private int year;
+    private String branch;
+    private List<Integer> marks = new ArrayList<>();
+    public student(String name,int rollNo,String branch,int year){
+        this.rollNo=rollNo;
+        this.name=name;
+        this.year=year;
+        this.branch=branch;
+    }
+    public void setmarks(int value){
+        marks.add(value);
+    }
+    public void display(){
+        System.out.println(rollNo+" "+name+" "+branch+" "+year);
+    }
+    public void compute(){
+        double sum=0;
+        for(int x:marks){
+            sum+=x;
+        }
+        System.out.print(this.rollNo+" ");
+        System.out.printf("%.2f",sum/marks.size());
+        System.out.println();
+    }
+}
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = Integer.parseInt(in.nextLine());
+        for(int i=0;i<n;i++){
+            String[] s1=in.nextLine().split(" ");
+            String[] s2=in.nextLine().split(" ");
+            student s = new student((s1[0]),Integer.parseInt(s1[1]),s1[2],Integer.parseInt(s1[3]));
+            for(int j=0;j<s2.length;j++){
+                s.setmarks(Integer.parseInt(s2[j]));
+            }
+            s.display();
+            s.compute();
+        }
+                System.out.println("NoOfStudents="+n);
+
+    }
+}
