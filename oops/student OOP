@@ -1,0 +1,101 @@
+import java.io.*;
+import java.util.*;
+class student {
+    private String name;
+    private int roll;
+    private int year;
+    private String branch;
+    private List<Integer> marks;
+    private float percentage;
+    student(String name,int roll,String branch,int year ){
+        this.name=name;
+        this.roll=roll;
+        this.branch=branch;
+        this.year=year;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public String getBranch(){
+        return this.branch;
+    }
+    public int getRoll(){
+        return this.roll;
+    }
+    public int getYear()
+    {
+        return this.year;
+    }
+    public void setMarks(String[] sstu){
+        marks=new ArrayList<>();
+        for(String x:sstu){
+            marks.add(Integer.parseInt(x));
+        }
+    }
+    public void calcPercentage(){
+        int sum=0;
+        for(int a:marks){
+            sum+=a;
+        }
+        percentage=(float)sum/marks.size();
+    }
+    public float getPercentage(){
+        return this.percentage;
+    }
+    public String toString(){
+        return this.name+" "+this.roll+" "+this.branch+" "+this.year+" ";
+    }
+}
+class SortByM implements Comparator<student>{
+    public int compare(student stu1,student stu2){
+        return (int)stu1.getPercentage()-(int)stu2.getPercentage();
+    }
+}
+class SortByRolBrnch implements Comparator<student>{
+    public int compare(student stud1,student stud2){
+        if((stud1.getBranch()).compareTo(stud2.getBranch())==0){
+            return (stud1.getRoll())-(stud2.getRoll());
+        }
+        else{
+        return (stud1.getBranch()).compareTo(stud2.getBranch());}
+    }
+}
+
+public class Solution {
+
+    public static void main(String[] args) {
+       Scanner in = new Scanner(System.in);
+        int n=in.nextInt();
+        in.nextLine();
+        List<student> stu= new ArrayList<>();
+        Set<Integer> set= new HashSet<>();
+        for(int i=0;i<n;i++){
+            String[] s1=in.nextLine().split(" ");
+            student s= new student(s1[0],Integer.parseInt(s1[1]),s1[2],Integer.parseInt(s1[3]));
+            stu.add(s);
+            set.add(Integer.parseInt(s1[1]));
+        }
+        for(int i=0;i<n;i++){
+            String[] mrk=in.nextLine().split(" ");
+            stu.get(i).setMarks(mrk);
+            stu.get(i).calcPercentage();
+        }
+         System.out.println(set.size());
+        Collections.sort(stu, new SortByM());
+        set = new HashSet<>();
+        for(student std:stu){
+            if(!(set.contains(std.getRoll()))){
+                System.out.format(std+"%.2f\n",std.getPercentage());
+                set.add(std.getRoll());
+            }
+        }
+        Collections.sort(stu, new SortByRolBrnch());
+        set = new HashSet<>();
+        for(student sttd:stu){
+            if(!(set.contains(sttd.getRoll()))){
+                System.out.printf(sttd+"%.2f\n",sttd.getPercentage());
+                set.add(sttd.getRoll());
+            }
+        }
+    }
+}
