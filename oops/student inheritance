@@ -1,0 +1,117 @@
+import java.io.*;
+import java.util.*;
+class student{
+    private String name,branch,reg,hostel,avg;
+    private int roll,year,fees;
+    private float percent;
+    private List<Integer> marks;
+    student(String reg,String name,int roll,String branch,int year,String hostel,int fees){
+        this.name=name;
+        this.roll=roll;
+        this.branch=branch;
+        this.year=year;
+        this.reg=reg;
+        this.fees=fees;
+        this.hostel=hostel;
+    }
+    public String getName(){
+        return this.name=name;
+    }
+    public int getRoll(){
+        return this.roll=roll;
+    }
+    public String getBranch(){
+        return this.branch=branch;
+    }
+    public int getYear(){
+        return this.year=year;
+    }
+    public String getReg(){
+        return this.reg=reg;
+    }
+    public String hostel(){
+        return this.hostel=hostel;
+    }
+    public void setMarks(String[] mk){
+        marks=new ArrayList<>();
+        for(String x:mk){
+            marks.add(Integer.parseInt(x));
+        }
+    }
+    public void calPercentage(){
+        int sum=0;
+        for(int nm:marks){
+            sum+=nm;
+        }
+        percent=(float)sum/marks.size();
+        percent=Math.round(percent);
+        avg=String.format("%.2f",percent);
+    }
+    public float getPercentage(){
+        return this.percent;
+    }
+    public String toString(){
+        if(this.reg.equals("Hosteller"))
+            return this.name+" "+this.roll+" "+this.branch+" "+this.year+" "+this.avg+" "+this.hostel+" "+this.fees;
+        return this.name+" "+this.roll+" "+this.branch+" "+this.year+" "+this.avg+" "+this.fees;
+    }
+    
+}
+class SortByMarks implements Comparator<student>{
+    public int compare(student s1,student s2){
+        return (int)s1.getPercentage()-(int)s2.getPercentage();
+    }
+}
+class SortByrollbrnch implements Comparator<student>{
+    public int compare(student s1,student s2){
+        if(s1.getBranch().compareTo(s2.getBranch())==0){
+            return s1.getRoll()-s2.getRoll();
+        }
+        return s1.getBranch().compareTo(s2.getBranch());
+    }
+}
+
+public class Solution {
+
+    public static void main(String[] args) {
+       Scanner in = new Scanner(System.in);
+        int n= in.nextInt();
+        in.nextLine();
+        List<student> li= new ArrayList<>();
+        Set<Integer> set= new HashSet<>();
+        for(int i=0;i<n;i++){
+            String[] info=in.nextLine().split(" ");
+            if(info[0].equals("Hosteller")){
+                li.add(new student(info[0],info[1],Integer.parseInt(info[2]),info[3],Integer.parseInt(info[4]),info[5],Integer.parseInt(info[6])));
+            
+        }
+            else if(info[0].equals("DayScholar")){
+                li.add(new student(info[0],info[1],Integer.parseInt(info[2]),info[3],Integer.parseInt(info[4]),"",Integer.parseInt(info[5])));
+            }
+            set.add(Integer.parseInt(info[2]));
+        }
+        for(int i=0;i<n;i++){
+            String[] marklist=in.nextLine().split(" ");
+            li.get(i).setMarks(marklist);
+            li.get(i).calPercentage();
+        }
+        System.out.println(set.size());
+        Collections.sort(li,new SortByMarks());
+        set =new HashSet<>();
+        for(student std:li){
+            if(!set.contains(std.getRoll())){
+                System.out.println(std);
+                set.add(std.getRoll());
+            }
+        }
+        Collections.sort(li,new SortByrollbrnch());
+        set= new HashSet<>();
+        for(student sttd:li){
+            if(!set.contains(sttd.getRoll())){
+                System.out.println(sttd);
+                set.add(sttd.getRoll());
+            }
+        }
+        
+    }
+}
